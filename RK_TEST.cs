@@ -11,10 +11,10 @@ using System.Collections.Generic;
 using System.Linq;
 
 namespace SplatoonScriptsOfficial.Duties.Dawntrail.Quantum40;
-public class Quantum_Target_Enforcer : SplatoonScript
+public class RK_TEST : SplatoonScript
 {
     public override HashSet<uint>? ValidTerritories { get; } = [1290, 1311, 1333];
-    public override Metadata? Metadata => new(7, "Poneglyph, NightmareXIV, Redmoon");
+    public override Metadata? Metadata => new(7, "RKテスト");
 
     private static class Buffs
     {
@@ -135,3 +135,4 @@ public class Quantum_Target_Enforcer : SplatoonScript
         public bool NoSwitchFireEnemy = false;
     }
 }
+
