@@ -14,7 +14,7 @@ namespace SplatoonScriptsOfficial.Duties.Dawntrail.Quantum40;
 public class Quantum_Target_Enforcer : SplatoonScript
 {
     public override HashSet<uint>? ValidTerritories { get; } = [1290, 1311, 1333];
-    public override Metadata? Metadata => new(7, "RKテスト");
+    public override Metadata? Metadata => new(7, "Poneglyph, NightmareXIV, Redmoon");
 
     private static class Buffs
     {
@@ -87,24 +87,6 @@ public class Quantum_Target_Enforcer : SplatoonScript
             {
                 return;
             }
-
-if (C.EnforceCorrectTarget && currentTarget != null)
-{
-    if (hasLight && currentTarget.NameId == Enemies.DevouredEater)
-    {
-        var correct = Svc.Objects.OfType<IBattleNpc>()
-            .FirstOrDefault(x => x.IsTargetable && !x.IsDead && x.NameId == Enemies.EminentGrief);
-        if (correct != null) EnforceTarget(correct);
-        return;
-    }
-    else if (hasDark && currentTarget.NameId == Enemies.EminentGrief)
-    {
-        var correct = Svc.Objects.OfType<IBattleNpc>()
-            .FirstOrDefault(x => x.IsTargetable && !x.IsDead && x.NameId == Enemies.DevouredEater);
-        if (correct != null) EnforceTarget(correct);
-        return;
-    }
-}
         }
 
         IBattleNpc? target = null;
@@ -123,25 +105,6 @@ if (C.EnforceCorrectTarget && currentTarget != null)
         if(target != null)
         {
             EnforceTarget(target);
-if(C.SuggestFocusTarget)
-{
-    IBattleNpc? opposite = null;
-    if(target.NameId == Enemies.EminentGrief)
-    {
-        opposite = Svc.Objects.OfType<IBattleNpc>()
-            .FirstOrDefault(x => x.IsTargetable && !x.IsDead && x.NameId == Enemies.DevouredEater);
-    }
-    else if(target.NameId == Enemies.DevouredEater)
-    {
-        opposite = Svc.Objects.OfType<IBattleNpc>()
-            .FirstOrDefault(x => x.IsTargetable && !x.IsDead && x.NameId == Enemies.EminentGrief);
-    }
-
-    if(opposite != null)
-    {
-        Controller.ShowText($"フォーカスターゲット候補: {opposite.Name}");
-    }
-}
         }
     }
 
@@ -151,8 +114,6 @@ if(C.SuggestFocusTarget)
         ImGui.Checkbox("Don't switch off players", ref C.NoSwitchOffPlayers);
         ImGui.Checkbox("Don't switch off Magic Circle", ref C.NoSwitchMagicCircle);
         ImGui.Checkbox("Don't switch off Fire Enemy", ref C.NoSwitchFireEnemy);
-        ImGui.Checkbox("Enforce correct target", ref C.EnforceCorrectTarget);
-        ImGui.Checkbox("Suggest opposite enemy for focus target", ref C.SuggestFocusTarget);
     }
 
     private void EnforceTarget(IBattleNpc target)
@@ -172,8 +133,5 @@ if(C.SuggestFocusTarget)
         public bool NoSwitchOffPlayers = false;
         public bool NoSwitchMagicCircle = false;
         public bool NoSwitchFireEnemy = false;
-        public bool EnforceCorrectTarget = true;
-        public bool SuggestFocusTarget = true;
-
     }
 }
